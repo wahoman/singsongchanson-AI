@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, abort
 import uuid
 import boto3
 import torch
+from transformers import BlipProcessor, BlipForConditionalGeneration
 from audiocraft.models import musicgen, MultiBandDiffusion
 from audiocraft.data.audio import audio_write
 from lc_project import analyze_input
@@ -13,6 +14,12 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
+
+# BLIP 모델 초기화
+blip_processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-large")
+blip_model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-large")
+
+
 
 # 환경 변수 설정
 AWS_ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY')
