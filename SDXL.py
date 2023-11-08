@@ -16,3 +16,5 @@ def generate_image(prompt):
     images.save(image_stream, format='PNG')
     image_stream.seek(0)  # 스트림의 시작으로 포인터를 이동
     return image_stream
+gd
+
