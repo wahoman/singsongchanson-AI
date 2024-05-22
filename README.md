@@ -1,84 +1,38 @@
-# AudioCraft
-![docs badge](https://github.com/facebookresearch/audiocraft/workflows/audiocraft_docs/badge.svg)
-![linter badge](https://github.com/facebookresearch/audiocraft/workflows/audiocraft_linter/badge.svg)
-![tests badge](https://github.com/facebookresearch/audiocraft/workflows/audiocraft_tests/badge.svg)
+# AI 기반 음악 창작 플랫폼
 
-AudioCraft is a PyTorch library for deep learning research on audio generation. AudioCraft contains inference and training code
-for two state-of-the-art AI generative models producing high-quality audio: AudioGen and MusicGen.
+**개발기간**: 2023.10.01~2023.11.30  
+**플랫폼**: Web  
+**개발 인원**: 5명  
 
+## 프로젝트 목적
+AI를 활용하여 음악과 앨범 아트를 창작하고 공유하는 플랫폼을 구축합니다.
 
-## Installation
-AudioCraft requires Python 3.9, PyTorch 2.0.0. To install AudioCraft, you can run the following:
+## 담당 역할
+- **생성형 AI 모델 서빙**
+- **BLIP 모델을 활용하여 사용자가 입력한 이미지의 키워드 추출**
+- **GPT API를 통한 텍스트의 장르, 느낌, 이미지 스타일 추출 작업**
+- **Stable Diffusion 프롬프트 튜닝을 통한 앨범 아트 생성**
+- **MusicGen 모델을 이용한 맞춤형 음악 생성**
 
-```shell
-# Best to make sure you have torch installed first, in particular before installing xformers.
-# Don't run this if you already have PyTorch installed.
-pip install 'torch>=2.0'
-# Then proceed to one of the following
-pip install -U audiocraft  # stable release
-pip install -U git+https://git@github.com/facebookresearch/audiocraft#egg=audiocraft  # bleeding edge
-pip install -e .  # or if you cloned the repo locally (mandatory if you want to train).
-```
+## 사용 언어
+- Python
+- JavaScript
+- Babylon.JS
 
-We also recommend having `ffmpeg` installed, either through your system or Anaconda:
-```bash
-sudo apt-get install ffmpeg
-# Or if you are using Anaconda or Miniconda
-conda install "ffmpeg<5" -c conda-forge
-```
+## 사용 기술
+- Stable Diffusion
+- MusicGen
+- Blip
 
-## Models
+## 프로젝트 내용
+이 프로젝트는 사용자 입력(텍스트, 이미지)을 기반으로 음악과 앨범 아트를 AI가 생성하는 플랫폼 개발에 초점을 맞췄습니다. 이는 사용자가 선택한 악기, 장르, 조성, 음악의 감각에 따라 음악을 생성합니다. 개발 과정에는 Python, Huggingface, GPT API를 활용하였고, BLIP, Stable Diffusion, MusicGen 모델의 조합과 최적화에 대한 이해를 얻었습니다. 이는 LLM을 포함한 다양한 AI 모델의 실용적 활용과 튜닝 경험을 제공했습니다.
 
-At the moment, AudioCraft contains the training code and inference code for:
-* [MusicGen](./docs/MUSICGEN.md): A state-of-the-art controllable text-to-music model.
-* [AudioGen](./docs/AUDIOGEN.md): A state-of-the-art text-to-sound model.
-* [EnCodec](./docs/ENCODEC.md): A state-of-the-art high fidelity neural audio codec.
-* [Multi Band Diffusion](./docs/MBD.md): An EnCodec compatible decoder using diffusion.
+## 기능
+### 사용자 입력 기반 음악 및 앨범 아트 생성
+사용자가 **텍스트** 또는 **이미지**를 입력하면, AI가 이를 기반으로 음악과 앨범 아트를 창작합니다.
 
-## Training code
+### 사용자 설정에 따른 음악 생성
+사용자가 **악기, 장르, 조성, 음악의 느낌** 등을 설정하면, 그에 맞추어 음악이 생성됩니다.
 
-AudioCraft contains PyTorch components for deep learning research in audio and training pipelines for the developed models.
-For a general introduction of AudioCraft design principles and instructions to develop your own training pipeline, refer to
-the [AudioCraft training documentation](./docs/TRAINING.md).
-
-For reproducing existing work and using the developed training pipelines, refer to the instructions for each specific model
-that provides pointers to configuration, example grids and model/task-specific information and FAQ.
-
-
-## API documentation
-
-We provide some [API documentation](https://facebookresearch.github.io/audiocraft/api_docs/audiocraft/index.html) for AudioCraft.
-
-
-## FAQ
-
-#### Is the training code available?
-
-Yes! We provide the training code for [EnCodec](./docs/ENCODEC.md), [MusicGen](./docs/MUSICGEN.md) and [Multi Band Diffusion](./docs/MBD.md).
-
-#### Where are the models stored?
-
-Hugging Face stored the model in a specific location, which can be overriden by setting the `AUDIOCRAFT_CACHE_DIR` environment variable for the AudioCraft models.
-In order to change the cache location of the other Hugging Face models, please check out the [Hugging Face Transformers documentation for the cache setup](https://huggingface.co/docs/transformers/installation#cache-setup).
-Finally, if you use a model that relies on Demucs (e.g. `musicgen-melody`) and want to change the download location for Demucs, refer to the [Torch Hub documentation](https://pytorch.org/docs/stable/hub.html#where-are-my-downloaded-models-saved).
-
-
-## License
-* The code in this repository is released under the MIT license as found in the [LICENSE file](LICENSE).
-* The models weights in this repository are released under the CC-BY-NC 4.0 license as found in the [LICENSE_weights file](LICENSE_weights).
-
-
-## Citation
-
-For the general framework of AudioCraft, please cite the following.
-```
-@article{copet2023simple,
-    title={Simple and Controllable Music Generation},
-    author={Jade Copet and Felix Kreuk and Itai Gat and Tal Remez and David Kant and Gabriel Synnaeve and Yossi Adi and Alexandre Défossez},
-    year={2023},
-    journal={arXiv preprint arXiv:2306.05284},
-}
-```
-
-When referring to a specific model, please cite as mentioned in the model specific README, e.g
-[./docs/MUSICGEN.md](./docs/MUSICGEN.md), [./docs/AUDIOGEN.md](./docs/AUDIOGEN.md), etc.
+### 가상공간
+나만의 **가상공간**에서 다른 사용자들과 생성한 음악을 공유하며, **소통**을 할 수 있습니다.
